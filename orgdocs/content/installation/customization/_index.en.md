@@ -15,9 +15,6 @@ keywords: [""]
 
 In `config.toml` you will find a logo variable. you can change your logo there.
 
-{{% notice tip %}}
-The size of the logo will adapt automatically
-{{% /notice %}}
 
 ### Change the favicon
 
