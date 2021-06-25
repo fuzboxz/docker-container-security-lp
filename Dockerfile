@@ -8,8 +8,10 @@ RUN apk add --no-cache \
 
 ENV VERSION 0.84.0
 
+# create and set /usr/local/src as folder
 WORKDIR /usr/local/src
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+# set pipefail to make sure that everything fails if one command fails
+SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 RUN curl -s -L\
       https://github.com/gohugoio/hugo/releases/download/v${VERSION}/hugo_${VERSION}_Linux-64bit.tar.gz \
       -o hugo_${VERSION}_Linux-64bit.tar.gz \
@@ -17,12 +19,12 @@ RUN curl -s -L\
     && curl -s -L \
       https://github.com/gohugoio/hugo/releases/download/v${VERSION}/hugo_${VERSION}_checksums.txt \
       -o hugo_${VERSION}_checksums.txt \
+    && cat hugo_${VERSION}_checksums.txt | grep hugo_*_Linux-64bit.tar.gz > checksums.txt \
 
-    && sha256sum -c hugo_${VERSION}_checksums.txt | grep "OK"  \
+    && sha256sum -c checksums.txt  2> /dev/null \
     && tar -xzf hugo_${VERSION}_Linux-64bit.tar.gz \
 
     && mv hugo /usr/local/bin/hugo \
-
     && addgroup -Sg 1000 hugo \
     && adduser -SG hugo -u 1000 -h /src hugo
 
