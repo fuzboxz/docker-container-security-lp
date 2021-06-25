@@ -19,7 +19,7 @@ RUN curl -s -L\
     && curl -s -L \
       https://github.com/gohugoio/hugo/releases/download/v${VERSION}/hugo_${VERSION}_checksums.txt \
       -o hugo_${VERSION}_checksums.txt \
-    && cat hugo_${VERSION}_checksums.txt | grep hugo_*_Linux-64bit.tar.gz > checksums.txt \
+    && cat hugo_${VERSION}_checksums.txt | grep "hugo_${VERSION}_Linux-64bit.tar.gz" > checksums.txt \
 
     && sha256sum -c checksums.txt  2> /dev/null \
     && tar -xzf hugo_${VERSION}_Linux-64bit.tar.gz \
