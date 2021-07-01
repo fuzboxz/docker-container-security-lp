@@ -28,7 +28,7 @@ RUN curl -s -L\
     && addgroup -Sg 1000 hugo \
     && adduser -SG hugo -u 1000 -h /src hugo
 
-HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 CMD [ 'curl', '-f', 'http://localhost:1313']
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 CMD [ 'curl', '--fail', 'http://localhost:1313']
 WORKDIR /src
 COPY orgdocs /src
 RUN 'hugo'
